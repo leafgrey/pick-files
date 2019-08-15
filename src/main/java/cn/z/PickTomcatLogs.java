@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * @author zch
  */
-public class PickLogs {
+public class PickTomcatLogs {
 	private static final String H = "-";
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
