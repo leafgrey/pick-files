@@ -19,12 +19,6 @@
 			<artifactId>easyexcel</artifactId>
 			<version>1.1.2-beta5</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<finalName>pick-files-${version}</finalName>

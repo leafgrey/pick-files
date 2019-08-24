@@ -28,8 +28,21 @@ public class PickMatchFiles {
 		// 需要分析的文件夹路径
 		//System.out.println("输入要分析的文件夹路径：");
 		//String scanPath = s.next();
-		String scanPath = "E:\\aaaaaaaaaaaaaaaa\\";
-		analyseLogs(scanPath);
+		List<List<String>> headList = new ArrayList<>();
+		List<String> headListStr = new ArrayList<>();
+		headListStr.add("a");
+		headListStr.add("b");
+		headListStr.add("c");
+		headListStr.add("d");
+		headList.add(headListStr);
+		List<List<Object>> contentList = new ArrayList<>();
+		List<Object> contentListObj = new ArrayList<>();
+		contentListObj.add(1);
+		contentListObj.add(2);
+		contentListObj.add(3);
+		contentListObj.add(4);
+		contentList.add(contentListObj);
+		writeToExce(headList,contentList);
 	}
 	private static void analyseLogs(String scanPath) {
 		ArrayList<String> match = new ArrayList<>();
