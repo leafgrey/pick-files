@@ -3,7 +3,6 @@ import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
-import com.alibaba.fastjson.JSON;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.Map;
  * @createDate 201908241111
  * @package cn.z
  */
-public class PickSubsidyUsersCid22 {
+public class PickSubsidyUsersCid22Filterall {
 	private static String file1 = "E:\\tables2\\数据库查询整理.xlsx";
 	private static String file2 = "E:\\tables2\\卡信息表201908130915.xlsx";
 	private static String path = "E:\\tables2\\imp\\";
@@ -38,26 +37,24 @@ public class PickSubsidyUsersCid22 {
 			InputStream inputStream = new FileInputStream(f);
 			List<Object> data = EasyExcelFactory.read(inputStream, new Sheet(1, 0));
 			inputStream.close();
-
 			File f2 = new File(file2);
 			InputStream inputStream2 = new FileInputStream(f2);
 			List<Object> data2 = EasyExcelFactory.read(inputStream2, new Sheet(1, 0));
 			inputStream2.close();
-
 			List<List<Object>> contentList1 = new ArrayList<>();
 			List<List<Object>> contentList2 = new ArrayList<>();
 			Map m = new HashMap();
 			Map m2 = new HashMap();
-			for (Object obj : data) {
-				// 返回每条数据的键值对 表示所在的列 和所在列的值
-				ArrayList<String> l = (ArrayList<String>) obj;
-				String name1 = l.get(1).replace(" ", "");
-				String no = l.get(0).replace(" ", "");
+			for (Object o2 : data2) {
+				ArrayList<String> l2 = (ArrayList<String>) o2;
+				String name2 = l2.get(0).replace(" ", "");
+				String mon = l2.get(1).replace(" ", "");
 				boolean isExit = false;
-				for (Object o2 : data2) {
-					ArrayList<String> l2 = (ArrayList<String>) o2;
-					String name2 = l2.get(0).replace(" ", "");
-					String mon = l2.get(1).replace(" ", "");
+				for (Object obj : data) {
+					// 返回每条数据的键值对 表示所在的列 和所在列的值
+					ArrayList<String> l = (ArrayList<String>) obj;
+					String name1 = l.get(1).replace(" ", "");
+					String no = l.get(0).replace(" ", "");
 					if (name1.equals(name2)) {
 						List<Object> contentListObj1 = new ArrayList<>();
 						contentListObj1.add(no);
@@ -71,7 +68,8 @@ public class PickSubsidyUsersCid22 {
 				if (!isExit) {
 					List<Object> contentListObj2 = new ArrayList<>();
 					contentListObj2.add("不存在：");
-					contentListObj2.add(name1);
+					contentListObj2.add(name2);
+					contentListObj2.add(mon);
 					contentList2.add(contentListObj2);
 				}
 			}
