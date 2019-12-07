@@ -1,4 +1,4 @@
-package cn.z;
+package cn.z.works.server.common;
 import cn.z.constant.ConsStr;
 import cn.z.utils.DateUtil;
 import cn.z.utils.Utils;

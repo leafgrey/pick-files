@@ -76,7 +76,7 @@
 							<configuration>
 								<transformers>
 									<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-										<mainClass>cn.z.PickTomcatLogs</mainClass>
+										<mainClass>cn.z.works.server.common.PickTomcatLogs</mainClass>
 									</transformer>
 								</transformers>
 							</configuration>

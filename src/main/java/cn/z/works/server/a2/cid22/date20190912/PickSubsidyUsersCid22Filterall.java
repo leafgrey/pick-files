@@ -1,4 +1,4 @@
-package cn.z;
+package cn.z.works.server.a2.cid22.date20190912;
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.Sheet;
@@ -6,65 +6,78 @@ import com.alibaba.excel.support.ExcelTypeEnum;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 /***
- * @class PickBsCompanyInfo
- * @description TODO
+ * @class PickExcel
+ * @description 未使用 错误得方法 应该直接过滤userno 不再研究
  * @author zch
- * @date 2019/9/16
- * @version V0.0.1.201909161759.01
- * @modfiyDate 201909161759
- * @createDate 201909161759
+ * @date 2019/8/24
+ * @version V0.0.1.201908241111.01
+ * @modfiyDate 201908241111
+ * @createDate 201908241111
  * @package cn.z
  */
-public class PickBsCompanyInfo {
+public class PickSubsidyUsersCid22Filterall {
+	private static String file1 = "E:\\tables2\\数据库查询整理.xlsx";
+	private static String file2 = "E:\\tables2\\卡信息表201908130915.xlsx";
+	private static String path = "E:\\tables2\\imp\\";
 	public static void main(String[] args) {
-		writeMyData();
+		writeName();
 	}
-	private static void writeMyData() {
-		List<List<Object>> dataList = readCompanyInfo();
-		List<List<Object>> newDataList = new ArrayList<>();
-		if (dataList != null) {
-			// System.out.println(dataList)
-			for (List<Object> list : dataList) {
-				List<Object> addData2 = new ArrayList<>();
-				addData2.add("#" + list.get(0) + " " + list.get(1));
-				newDataList.add(addData2);
-				List<Object> addData = new ArrayList<>();
-				addData.add("c" + list.get(0) + "=" + list.get(0));
-				newDataList.add(addData);
-			}
-			for (List<Object> list : newDataList) {
-				if (list.size() >= 2) {
-					System.out.println((list.get(0).toString() + " " + list.get(1)));
-				}
-				else {
-					System.out.println((list.get(0).toString()));
-				}
-			}
-		}
-		else {
-			System.out.println(dataList + " is null !");
-		}
-	}
-	private static List<List<Object>> readCompanyInfo() {
+	/**
+	 * 按照新商学院的学员信息格式分类excel并导入系统
+	 */
+	private static void writeName() {
 		try {
-			String file = "C:\\Users\\zch\\Desktop\\jin.xlsx";
-			File f = new File(file);
+			/* ===================================== */
+			// 1 读取excel
+			File f = new File(file1);
 			InputStream inputStream = new FileInputStream(f);
 			List<Object> data = EasyExcelFactory.read(inputStream, new Sheet(1, 0));
 			inputStream.close();
-			List<List<Object>> contentList = new ArrayList<>();
-			for (Object o : data) {
-				List<Object> l2 = (ArrayList<Object>) o;
-				contentList.add(l2);
+			File f2 = new File(file2);
+			InputStream inputStream2 = new FileInputStream(f2);
+			List<Object> data2 = EasyExcelFactory.read(inputStream2, new Sheet(1, 0));
+			inputStream2.close();
+			List<List<Object>> contentList1 = new ArrayList<>();
+			List<List<Object>> contentList2 = new ArrayList<>();
+			Map m = new HashMap();
+			Map m2 = new HashMap();
+			for (Object o2 : data2) {
+				ArrayList<String> l2 = (ArrayList<String>) o2;
+				String name2 = l2.get(0).replace(" ", "");
+				String mon = l2.get(1).replace(" ", "");
+				boolean isExit = false;
+				for (Object obj : data) {
+					// 返回每条数据的键值对 表示所在的列 和所在列的值
+					ArrayList<String> l = (ArrayList<String>) obj;
+					String name1 = l.get(1).replace(" ", "");
+					String no = l.get(0).replace(" ", "");
+					if (name1.equals(name2)) {
+						List<Object> contentListObj1 = new ArrayList<>();
+						contentListObj1.add(no);
+						contentListObj1.add(name1);
+						contentListObj1.add(name2);
+						contentListObj1.add(mon);
+						contentList1.add(contentListObj1);
+						isExit = true;
+					}
+				}
+				if (!isExit) {
+					List<Object> contentListObj2 = new ArrayList<>();
+					contentListObj2.add("不存在：");
+					contentListObj2.add(name2);
+					contentListObj2.add(mon);
+					contentList2.add(contentListObj2);
+				}
 			}
-			// System.out.println(contentList);
-			return contentList;
+			writeToExce(getHeadList(), contentList1, path, "impok.xls");
+			writeToExce(getHeadList(), contentList2, path, "imperr.xls");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 	/**

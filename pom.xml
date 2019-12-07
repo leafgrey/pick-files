@@ -24,6 +24,11 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.59</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>pick-files-${version}</finalName>
@@ -75,7 +80,7 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>cn.z.PickTomcatLogs</mainClass>
+								<mainClass>cn.z.works.server.common.PickTomcatLogs</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
@@ -83,5 +88,15 @@
 				<!--打包可执行jar-->
 			</plugins>
 		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xls</include>
+					<include>**/*.xlsx</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 	</build>
 </project>
